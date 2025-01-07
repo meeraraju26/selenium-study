@@ -1,6 +1,7 @@
 package Tests;
 
 import Library.TestBase;
+import Pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -9,20 +10,13 @@ import org.testng.annotations.Test;
 public class LoginTest extends TestBase {
 
     @Test
-    public void VerifyLogin() throws InterruptedException {
-
-        WebElement lnkSignin = driver.findElement(By.linkText("Sign In"));
-        lnkSignin.click();
-        driver.findElement(By.name("login[username]"))
-                .sendKeys("26nov93kukku@gmail.com");
-        driver.findElement(By.name("login[password]"))
-                .sendKeys("08Nov@2020");
-        driver.findElement(By.id("send2")).click();
-        Thread.sleep(4000);
-        String ExpectedMsg = "Welcome, Meera Raju!";
-        String ActualMsg = driver.findElement(By.className("logged-in")).
-                getText();
-        Assert.assertEquals(ActualMsg,ExpectedMsg,"Login Failed");
+    public void VerifyLogin() throws InterruptedException
+    {
+        String email = "26nov93kukku@gmail.com";
+        String password = "08Nov@2020";
+        String fullName= "Meera Raju";
+        LoginPage loginpage = new LoginPage(driver);
+        loginpage.login(email,password,true,fullName);
     }
 
     @Test
