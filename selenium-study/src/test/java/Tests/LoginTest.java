@@ -1,20 +1,16 @@
 package Tests;
 
+import Library.TestBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class LoginTest {
-    String website="https://magento.softwaretestingboard.com/";
+public class LoginTest extends TestBase {
 
     @Test
-    public void launchbroswer() throws InterruptedException {
-        WebDriver driver =new ChromeDriver();
-        driver.get(website);
-        driver.manage().window().maximize();
+    public void VerifyLogin() throws InterruptedException {
+
         WebElement lnkSignin = driver.findElement(By.linkText("Sign In"));
         lnkSignin.click();
         driver.findElement(By.name("login[username]"))
@@ -27,6 +23,13 @@ public class LoginTest {
         String ActualMsg = driver.findElement(By.className("logged-in")).
                 getText();
         Assert.assertEquals(ActualMsg,ExpectedMsg,"Login Failed");
-        driver.close();
+    }
+
+    @Test
+    public void VerifyTitle()
+    {
+        String ExpectedTitle = "Home Page";
+        String ActaulTitle =driver.getTitle();
+        Assert.assertEquals(ExpectedTitle,ActaulTitle,"Incorrect Title");
     }
 }
